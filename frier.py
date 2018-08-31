@@ -15,7 +15,7 @@ if __name__ == "__main__":
     b_location = "bsmol.png"
     limit = 0.98
     total_command = "convert -page " + str(sys.argv[1]) + "x" + str(sys.argv[2]) + "+0+0 " + maim_location + " "
-    image = Image.open('/home/dieraca/summer_18_projs/deepfrier/dab.png')
+    image = Image.open(maim_location)
     with PyTessBaseAPI() as api:
         api.SetImage(image)
         boxes = api.GetComponentImages(RIL.SYMBOL, True)
