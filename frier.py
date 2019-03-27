@@ -12,7 +12,7 @@ if __name__ == "__main__":
     # TODO pass in maim_location as part of argv
     maim_location = "/tmp/maim_screenie.png"
     maim_location_2 = "/tmp/maim_screenie2.png"
-    b_location = "bsmol.png"
+    b_location = "/home/dieraca/summer_18_projs/deepfrier/bsmol.png"
     limit = 0.80
     total_command = "convert -page " + str(sys.argv[1]) + "x" + str(sys.argv[2]) + "+0+0 " + maim_location + " "
     image = Image.open(maim_location)
