@@ -10,9 +10,10 @@ import sys
 if __name__ == "__main__":
     # TODO make limit dependent on number of letters
     # TODO pass in maim_location as part of argv
+    #sys.stderr.write(str(sys.argv))
     maim_location = "/tmp/maim_screenie.png"
     maim_location_2 = "/tmp/maim_screenie2.png"
-    b_location = "/home/dieraca/summer_18_projs/deepfrier/bsmol.png"
+    b_location = sys.argv[8]
     limit = 0.80
     total_command = "convert -page " + str(sys.argv[1]) + "x" + str(sys.argv[2]) + "+0+0 " + maim_location + " "
     image = Image.open(maim_location)
