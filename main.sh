@@ -2,7 +2,7 @@
 MAIM_LOCATION="/tmp/maim_screenie.png"
 MAIM_LOCATION_2="/tmp/maim_screenie2.png"
 # change this line to wherever your cloned the script
-ROOT="/home/dieraca/summer_18_projs/deepfrier"
+ROOT=$(pwd)
 B_LOCATION="$ROOT/bsmol.png"
 maim -s $MAIM_LOCATION
 dims_screenie=$(identify -format " %w %h " $MAIM_LOCATION)
