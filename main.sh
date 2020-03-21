@@ -1,8 +1,10 @@
 #!/bin/bash
+#B_LOCATION=${:-$pwd/"./bsmol.png"
+#FRIER_LOCATION="./frier.py"
 MAIM_LOCATION="/tmp/maim_screenie.png"
 MAIM_LOCATION_2="/tmp/maim_screenie2.png"
 # change this line to wherever your cloned the script
-slurp | grim $MAIM_LOCATION
+grim -g "$(slurp)" $MAIM_LOCATION
 dims_screenie=$(identify -format " %w %h " $MAIM_LOCATION)
 dims_b=$(identify -format " %w %h " $B_LOCATION)
 deepfry=$(python3.7 $FRIER_LOCATION $dims_screenie $dims_screenie $dims_b $MAIM_LOCATION $B_LOCATION)
