@@ -1,4 +1,3 @@
-#!python3.7
 from PIL import Image
 from tesserocr import PyTessBaseAPI, RIL
 import random
@@ -18,17 +17,14 @@ if __name__ == "__main__":
     maim_location_3 = "/tmp/maim_screenie3.png"
 
     try:
-        print("REMOVE")
         subprocess.check_call(["rm", maim_location])
         subprocess.check_call(["rm", maim_location_2])
         subprocess.check_call(["rm", maim_location_3])
     except Exception:
         pass
 
-    print("SLURP")
     slurp = subprocess.check_output("slurp")
 
-    print("GRIM")
     subprocess.check_call(
         ["grim", "-g", slurp[:-1], maim_location]
     )
@@ -36,12 +32,10 @@ if __name__ == "__main__":
     # ["cp", "\"" + maim_location + "\"", "\"" + maim_location_3 + "\""]
     # )
 
-    print("DIM CALC")
     dims_screenshot = subprocess.check_output(
         ["identify", "-format", "\"%w %h \"", maim_location]
     )
     dims_screenshot = dims_screenshot.decode("utf-8").split(" ")
-    print("DIM B CALC")
     dims_b = subprocess.check_output(
         ["identify", "-format", "\" %w %h \" ", b_location]
     )
@@ -49,7 +43,7 @@ if __name__ == "__main__":
     # print("dim_b" + str(dims_b))
     # print("dim_b" + str(dims_screenshot))
 
-    limit = 0.80
+    limit = 0.40
     total_command = ["convert", "-page", dims_screenshot[0]
                      [1:]+"x"+dims_screenshot[1]+"+0+0", maim_location]
     image = Image.open(maim_location)
@@ -58,19 +52,23 @@ if __name__ == "__main__":
         boxes = api.GetComponentImages(RIL.SYMBOL, True)
         for _, (__, box, _, _) in enumerate(boxes):
             if random.random() > limit:
-                total_command += ["-page", dims_screenshot[0][1:] + "x" +
-                                  dims_screenshot[1] + "+" + str(box['x']) + "+" + str(box['y'] - 6), b_location]
+                total_command += ["-page", dims_screenshot[0][1:] +
+                                  "x" + dims_screenshot[1] +
+                                  "+" + str(box['x']) + "+"
+                                  + str(box['y'] - 6), b_location]
     total_command += ["-background", "dodgerblue",
                       "-layers", "flatten", maim_location_2]
-    print(functools.reduce(lambda a, b: a + " " + b, total_command))
-    print("TOUCH")
+    # print(functools.reduce(lambda a, b: a + " " + b, total_command))
     subprocess.check_call(["touch", maim_location_2])
     subprocess.check_call(["touch", maim_location_3])
-    print("FINAL")
     image.close()
     subprocess.check_call(total_command)
     # TODO change the wl-copy based on X vs wayland
     subprocess.check_call(
-        ["bash", "-c", "convert", maim_location_2, "-liquid-rescale",
-         "50%", "-fill", "orange", "-tint", "100", "-", "|", "convert", "-", "-liquid-rescale", "200%", "-", "|", "convert", "-", "-modulate", "50,200", "-", "|", "convert", "-", "-emboss", "-x1.1", "-", "|", "wl-copy"]
+        ["bash", "-c", "convert " + maim_location_2 + " -liquid-rescale "
+         " 50% " + " -fill " + " orange " + " -tint " + " 100 " +
+         " - " + " | " + " convert " + " - " + " -liquid-rescale "
+         + " 200% " + " - " + " | " + " convert " + " - " + " -modulate " +
+         " 50,200 " + " - " + " | " + " convert " + " - " + " -emboss " +
+         " -x1.1 " + " - " + " | " + " wl-copy "]
     )
