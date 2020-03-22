@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 from PIL import Image
 from tesserocr import PyTessBaseAPI, RIL
 import random
