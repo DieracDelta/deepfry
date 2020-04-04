@@ -67,6 +67,11 @@ if __name__ == "__main__":
     subprocess.check_call(["touch", maim_location_3])
     image.close()
     subprocess.check_call(total_command)
+    clipboard = ""
+    if os.getenv("DISPLAY_FRONTEND") == "X11":
+        clipboard = " xclip -selection clipboard -t image/png"
+    else:
+        clipboard = " wl-copy"
     # TODO change the wl-copy based on X vs wayland
     subprocess.check_call(
         ["bash", "-c", "convert " + maim_location_2 + " -liquid-rescale "
@@ -74,5 +79,5 @@ if __name__ == "__main__":
          " - " + " | " + " convert " + " - " + " -liquid-rescale "
          + " 200% " + " - " + " | " + " convert " + " - " + " -modulate " +
          " 50,200 " + " - " + " | " + " convert " + " - " + " -emboss " +
-         " -x1.1 " + " - " + " | " + " wl-copy "]
+         " -x1.1 " + " - " + " | " + clipboard]
     )
