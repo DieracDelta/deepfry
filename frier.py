@@ -24,11 +24,14 @@ if __name__ == "__main__":
     except Exception:
         pass
 
-    slurp = subprocess.check_output("slurp")
+    if os.getenv("DISPLAY_FRONTEND") == "X11":
+        subprocess.check_call(["maim", "-s", maim_location])
+    else:
+        slurp = subprocess.check_output("slurp")
+        subprocess.check_call(
+            ["grim", "-g", slurp[:-1], maim_location]
+        )
 
-    subprocess.check_call(
-        ["grim", "-g", slurp[:-1], maim_location]
-    )
     # subprocess.check_call(
     # ["cp", "\"" + maim_location + "\"", "\"" + maim_location_3 + "\""]
     # )
