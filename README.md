@@ -11,3 +11,7 @@ To run: `python3.7 frier.py`. You need to first set `$B_LOCATION` to the locatio
 
 To invoke on X11, you'll also need to set the `DISPLAY_FRONTEND` variable to `X11`. Sample invocation:
 `DISPLAY_FRONTEND=X11 B_LOCATION=$(pwd)/bsmol.png python3.7 frier.py`
+
+You may not want to use the clipboard. By default, the clipboard is not used. However, it maybe be used by setting `USE_CLIPBOARD` to true. Sample invocation: 
+
+`USE_CLIPBOARD=true B_LOCATION=$(pwd)/bsmol.png python3.7 frier.py`

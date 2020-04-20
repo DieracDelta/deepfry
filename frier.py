@@ -9,6 +9,8 @@ import os
 
 if __name__ == "__main__":
     b_location = os.environ.get("B_LOCATION")
+    use_clipboard = os.environ.get("USE_CLIPBOARD") == "true"
+
     if b_location is None or b_location == "":
         print("error, B_LOCATION was unset")
         exit(0)
@@ -79,5 +81,5 @@ if __name__ == "__main__":
          " - " + " | " + " convert " + " - " + " -liquid-rescale "
          + " 200% " + " - " + " | " + " convert " + " - " + " -modulate " +
          " 50,200 " + " - " + " | " + " convert " + " - " + " -emboss " +
-         " -x1.1 " + " - " + " | " + clipboard]
+         " -x1.1 " + " - " + (if use_clipboard " | " + clipboard else "") ]
     )
