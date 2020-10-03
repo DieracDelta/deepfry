@@ -81,5 +81,5 @@ if __name__ == "__main__":
          " - " + " | " + " convert " + " - " + " -liquid-rescale "
          + " 200% " + " - " + " | " + " convert " + " - " + " -modulate " +
          " 50,200 " + " - " + " | " + " convert " + " - " + " -emboss " +
-         " -x1.1 " + " - " + (if use_clipboard " | " + clipboard else "") ]
+         " -x1.1 " + " - " + clipboard ]
     )
