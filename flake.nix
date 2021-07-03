@@ -41,7 +41,7 @@
   in
   {
     packages.x86_64-linux.deepfry = deepfry;
-    packages.x86_64-linux.defaultPackage = deepfry;
+    defaultPackage.x86_64-linux = deepfry;
     defaultApp.x86_64-linux = {
       type = "app";
       program = "${deepfry}/bin/deepfry";
