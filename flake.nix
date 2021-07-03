@@ -8,15 +8,14 @@
   };
 
   outputs = inputs:
-  let pkgs = import inputs.nixpkgs { localSystem = "x86_64-linux"; }; in
-  {
-      packages.x86_64-linux.deepfry =
+  let pkgs = import inputs.nixpkgs { localSystem = "x86_64-linux"; };
+      deepfry =
           pkgs.stdenv.mkDerivation {
               name = "deepfrier";
               version = 1.0;
               src = pkgs.lib.cleanSource ./.;
               propagatedBuildInputs = [ pkgs.xclip ];
-              meta = with pkgs.stdenv.lib; {
+              meta = with pkgs.lib; {
                    description = "A deepfrier";
                    homepage = "https://github.com/DieracDelta/deepfry";
                    license = licenses.mit;
@@ -39,5 +38,9 @@
                   makeWrapper $out/bin/frier.py $out/bin/deepfry --set-default B_LOCATION $out/lib/bsmol.png --set-default DISPLAY_FRONTEND X11 --prefix PATH : ${pkgs.lib.makeBinPath [ (pkgs.python37.withPackages (ps: with ps; [ pillow tesserocr ])) ] }
               '';
           };
+  in
+  {
+    packages.x86_64-linux.deepfry = deepfry;
+    packages.x86_64-linux.defaultPackage = deepfry;
   };
 }
