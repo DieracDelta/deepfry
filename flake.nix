@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      url = "github:NixOS/nixpkgs/nixos-21.05";
     };
   };
 
@@ -15,7 +15,6 @@
           name = "deepfrier";
           version = 1.0;
           src = pkgs.lib.cleanSource ./.;
-          propagatedBuildInputs = with pkgs; [ imagemagick xclip maim ];
           meta = with pkgs.lib; {
             description = "A deepfrier";
             homepage = "https://github.com/DieracDelta/deepfry";
@@ -36,7 +35,7 @@
 
 
           postFixup = ''
-            makeWrapper $out/bin/frier.py $out/bin/deepfry --set-default B_LOCATION $out/lib/bsmol.png --set-default DISPLAY_FRONTEND X11 --prefix PATH : ${pkgs.lib.makeBinPath [ (pkgs.python37.withPackages (ps: with ps; [ pillow tesserocr ])) ] }
+            makeWrapper $out/bin/frier.py $out/bin/deepfry --set-default B_LOCATION $out/lib/bsmol.png --set-default DISPLAY_FRONTEND X11 --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.imagemagick pkgs.xclip pkgs.maim (pkgs.python3.withPackages (ps: with ps; [ pillow tesserocr ])) ] }
           '';
         };
     in
